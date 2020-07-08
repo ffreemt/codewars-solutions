@@ -1,0 +1,23 @@
+Create Phone Number https://www.codewars.com/kata/525f50e3b73515a6db000b83/rust
+
+use std::any::type_name;
+//use std::str
+
+fn type_of<T>(_: T) -> &'static str {
+    type_name::<T>()
+}
+
+js solution?
+https://github.com/dwqs/codewars-practices/blob/master/codewars/201512/create-phone-number.md
+https://github.com/MillZhang/MarkdownBlog/issues/7
+
+codewars unlocked solution:
+fn create_phone_number(numbers: &[u8]) -> String {
+  	numbers.unshift('(');
+	numbers.splice(4,0,')',' ')
+	numbers.splice(9,0,'-')
+	return numbers.join('');
+}
+
+
+---
