@@ -1,0 +1,24 @@
+{
+  "name": "codewars-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "comp.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test0": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r esm",
+    "lint": "eslint *.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.4.0",
+    "esm": "^3.2.25",
+    "mocha": "^8.0.1"
+  }
+}
