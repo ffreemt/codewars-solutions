@@ -3,7 +3,7 @@ const expect = require("chai").expect;
 const sinon = require("sinon");
 const assert = require("assert");
 
-const comp = require("./comp");
+const comp = require("../comp");
 
 describe("comp mocha test ", () => {
   context(" sanity ", () => {

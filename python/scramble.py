@@ -21,16 +21,12 @@ str1.split("").filter(x => x=="a").length
 
 # pylint: disable=missing-docstring
 
+from typing import List
+
 from functools import reduce
+from collections import Counter
 
-
-def counter(str_: List[str]) -> dict:
-    dict_ = {}
-    for elm in set(str_):
-        dict_.update({elm: str_.count(elm)})
-    return dict_
-
-
+_ = '''
 def scramble(str1, str2):
     """ scramble.
 
@@ -42,18 +38,72 @@ def scramble(str1, str2):
     rewritten in python
     """
 
-
+    # codewars js solution
     # occurences = reduce(lambda acc, el: not (acc.update({el: acc[el] + 1}) if acc.get(el) else acc.update({el: 1})) and locals()['acc'], str1, {})  # 13µs 17.2 µs
 
-    occurences = counter(str2)  # 10.7 µs 13µs
+    # %timeit scramble('rkqodlw', 'world')  # 37 µs
+    # occurences = counter(str1)
 
-    occurences = reduce(lambda acc, el: not(acc.update({el: str1.count(el)})) and locals()['acc'], set(str1), {})  # 19 µs
+    # %timeit scramble('rkqodlw', 'world')  # 35 µs
+    # oc = lambda str_: reduce(lambda acc, el: not(acc.update({el: str_.count(el)})) and locals()['acc'], set(str_), {})
+    # occurences = oc(str1)
 
-    _ = map(lambda el: not (occurences.update({el: occurences[el] - 1}) if occurences.get(el) else occurences.update({el: -1})) and (occurences[el] > -1), str2)
+    # _ = map(lambda el: not (occurences.update({el: occurences[el] - 1}) if occurences.get(el) else occurences.update({el: -1})) and (occurences[el] > -1), str2)
 
+    # return all(_)
+# '''
 
-    return all(_)
+_ = """
+from typing import List
 
+def counter(str_: List[str]) -> dict:
+    dict_ = {}
+    for elm in set(str_):
+        dict_.update({elm: str_.count(elm)})
+    return dict_
+
+def scramble(str1, str2):
+    occurences = counter(str1)
+
+    return all(map(lambda el: not (occurences.update({el: occurences[el] - 1}) if occurences.get(el) else occurences.update({el: -1})) and (occurences[el] > -1), str2))
+
+# %timeit scramble('rkqodlw', 'world')  # 35 µs
+# """
+
+_ = """
+from functools import reduce
+
+def scramble(str1, str2):
+    occurences = reduce(lambda acc, el: not(acc.update({el: str1.count(el)})) and locals()['acc'], set(str1), {})
+
+    return all(map(lambda el: not (occurences.update({el: occurences[el] - 1}) if occurences.get(el) else occurences.update({el: -1})) and (occurences[el] > -1), str2))
+
+# %timeit scramble('rkqodlw', 'world')  # 50 µs
+# """
+
+_ = """
+from collections import Counter
+
+def scramble(str1, str2):
+    return not (Counter(str2) - Counter(str1))
+# %timeit scramble('rkqodlw', 'world')  # 85 µs
+
+# """
+
+_ = """
+def scramble(s1, s2):
+    return not any(s1.count(char) < s2.count(char) for char in set(s2))
+# %timeit scramble('rkqodlw', 'world')  # 16 µs
+# """
+
+# _ = """
+def scramble(s1, s2):
+    for char in set(s2):
+        if s1.count(char) < s2.count(char):
+            return False
+    return True
+# %timeit scramble('rkqodlw', 'world')  # 11 µs
+# """
 
 def test_1():
     """ test_1. """
